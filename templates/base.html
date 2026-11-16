@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Детейлинг-Бокс{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="{% url 'core:home' %}">LOGO</a>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="{% url 'core:service_list' %}">Услуги</a></li>
+                    <li><a href="{% url 'core:service_list' %}">Калькулятор</a></li>
+                    <li><a href="{% url 'core:home' %}">Боксы</a></li>
+                    <li><a href="{% url 'core:home' %}">Отзывы</a></li>
+                </ul>
+            </nav>
+            <div class="header-auth">
+                <a href="{% url 'core:auth' %}" class="auth-link">Вход</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <span class="footer-brand">FOOTER</span>
+            <div class="footer-info">
+                Адрес | Телефон | Режим работы | 2026
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Оформление записи — Детейлинг-Бокс{% endblock %}
+
+{% block content %}
+<section class="booking-section">
+    <h1>Оформление записи</h1>
+
+    <div class="booking-grid">
+        <div class="booking-left-col">
+            <div class="card-box-figma">
+                <h3>Автомобиль:</h3>
+                <div class="input-readonly">LADA Granta (седан) (а777аа73)</div>
+            </div>
+
+            <div class="card-box-figma">
+                <h3>Дата и выбор свободного бокса:</h3>
+                <div class="date-display">Дата: 16.11.2026</div>
+                <h4 class="sub-heading">Бокс №2 (Детейлинг):</h4>
+                <div class="time-slots-grid">
+                    <button class="time-slot-btn free">10:00</button>
+                    <button class="time-slot-btn free">14:30</button>
+                    <button class="time-slot-btn busy">16:45</button>
+                    <button class="time-slot-btn free">18:00</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="booking-right-col">
+            <div class="card-box-figma order-summary-card">
+                <h3>Ваш заказ</h3>
+                <ul class="order-services-list">
+                    <li>Трёхфазная мойка</li>
+                    <li>Антидождь</li>
+                </ul>
+                <div class="order-box-time">
+                    Бокс №2<br>Время 14:30-16:45
+                </div>
+                <div class="order-total-figma">
+                    ИТОГО: 5 500 руб
+                </div>
+                <button class="btn-action-dark">Подтвердить</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-box-figma comment-box-wrap">
+        <h3>Комментарий к заказу (необязательно):</h3>
+        <div class="input-placeholder-box">Поле ввода текта...</div>
+    </div>
+
+    <div class="note-box-figma">
+        <strong>Примечание:</strong> Отмена заказа без штрафа доступна за 2 часа до визита
+    </div>
+</section>
+{% endblock %}

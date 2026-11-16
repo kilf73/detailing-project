@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Каталог услуг — Детейлинг-Бокс{% endblock %}
+
+{% block content %}
+<section class="catalog-section">
+    <h1>Католог услуг</h1>
+    
+    <div class="catalog-controls">
+        <div class="search-box">
+            <input type="text" placeholder="Поиск услуги...">
+        </div>
+        <div class="body-select-box">
+            <span>Кузов: Кроссовер</span>
+        </div>
+    </div>
+
+    <div class="category-tabs">
+        <button class="cat-btn active">Все</button>
+        <button class="cat-btn">Мойка</button>
+        <button class="cat-btn">Химчистка</button>
+        <button class="cat-btn">Полировка</button>
+    </div>
+
+    <div class="services-list-figma">
+        <article class="service-row-card">
+            <div class="service-info-left">
+                <h3>Трёхфазная детейлинг-мойка</h3>
+                <p>Описание состава работ и применяемой химии...</p>
+                <div class="service-meta">90 минут | 2 500 руб</div>
+            </div>
+            <a href="{% url 'core:booking' %}" class="btn-action-sm">Записаться</a>
+        </article>
+
+        <article class="service-row-card">
+            <div class="service-info-left">
+                <h3>Полная химчистка с разбором</h3>
+                <p>Описание состава работ и применяемой химии...</p>
+                <div class="service-meta">360 минут | 14 500 руб</div>
+            </div>
+            <a href="{% url 'core:booking' %}" class="btn-action-sm">Записаться</a>
+        </article>
+
+        <article class="service-row-card">
+            <div class="service-info-left">
+                <h3>Лёгкая полировка</h3>
+                <p>Описание состава работ и применяемой химии...</p>
+                <div class="service-meta">480 минут | 25 000 руб</div>
+            </div>
+            <a href="{% url 'core:booking' %}" class="btn-action-sm">Записаться</a>
+        </article>
+
+        <article class="service-row-card">
+            <div class="service-info-left">
+                <h3>Защитное покрытие “Антидождь”</h3>
+                <p>Описание состава работ и применяемой химии...</p>
+                <div class="service-meta">50 минут | 3 000 руб</div>
+            </div>
+            <a href="{% url 'core:booking' %}" class="btn-action-sm">Записаться</a>
+        </article>
+    </div>
+</section>
+{% endblock %}

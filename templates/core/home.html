@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Детейлинг и автомойка с записью по боксам{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <h1>Детейлинг и автомойка<br>с записью по боксам</h1>
+    <p class="hero-subtitle">Точный расчет цены по типу кузова за 1 минуту</p>
+    <a href="{% url 'core:booking' %}" class="btn-action">Записаться онлайн</a>
+</section>
+
+<section class="calc-banner">
+    <h2>Быстрый расчёт стоимости:</h2>
+    <div class="body-types-row">
+        <button class="body-btn active">Седан x1.0</button>
+        <button class="body-btn">Кроссовер x1.2</button>
+        <button class="body-btn">Внедорожник x1.4</button>
+        <button class="body-btn">Автобус x2</button>
+    </div>
+    <div class="calc-result-bar">
+        Комплекстая мойка: 1 500 руб | Полировка 12 000 руб
+    </div>
+</section>
+
+<section class="complexes-section">
+    <h2>Популярные комплексы:</h2>
+    <div class="complexes-grid">
+        <article class="complex-card">
+            <div class="photo-placeholder">ФОТО</div>
+            <h3>Фаза 1-2 мойка</h3>
+            <a href="{% url 'core:booking' %}" class="btn-card">Выбрать</a>
+        </article>
+        <article class="complex-card">
+            <div class="photo-placeholder">ФОТО</div>
+            <h3>Химчиста</h3>
+            <a href="{% url 'core:booking' %}" class="btn-card">Выбрать</a>
+        </article>
+        <article class="complex-card">
+            <div class="photo-placeholder">ФОТО</div>
+            <h3>Керамика</h3>
+            <a href="{% url 'core:booking' %}" class="btn-card">Выбрать</a>
+        </article>
+    </div>
+</section>
+
+<section class="windows-section">
+    <h2>Свободные окна на сегодня:</h2>
+    <div class="window-list">
+        <div class="window-item">
+            <span>Бокс 1 Мойка: 16:00; 17:00</span>
+            <a href="{% url 'core:booking' %}" class="link-btn">Выбрать</a>
+        </div>
+        <div class="window-item">
+            <span>Бокс 2 Детейлинг: 13:00; 15:00</span>
+            <a href="{% url 'core:booking' %}" class="link-btn">Выбрать</a>
+        </div>
+        <div class="window-item">
+            <span>Бокс 3 Универсал: 11:00; 17:00</span>
+            <a href="{% url 'core:booking' %}" class="link-btn">Выбрать</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
