@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход и регистрация — Детейлинг-Бокс{% endblock %}
+
+{% block content %}
+<section class="auth-section">
+    <div class="auth-card-figma">
+        <div class="auth-tabs">
+            <button type="button" class="tab-btn active">Вход</button>
+            <a href="{% url 'core:profile' %}" class="tab-btn">Демо-кабинет</a>
+        </div>
+
+        <form method="post" class="auth-form js-validate-form" novalidate>
+            {% csrf_token %}
+            <div class="form-group-figma">
+                <label for="{{ form.login.id_for_label }}">{{ form.login.label }}</label>
+                {{ form.login }}
+                {{ form.login.errors }}
+            </div>
+
+            <div class="form-group-figma">
+                <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+                {{ form.password }}
+                {{ form.password.errors }}
+            </div>
+
+            <button type="submit" class="btn-action-dark btn-block-figma">Войти в кабинет</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Личный кабинет — Детейлинг-Бокс{% endblock %}
+
+{% block content %}
+<section class="profile-section">
+    <h1>Личный кабинет: {{ profile_user.first_name }} {{ profile_user.last_name }}</h1>
+    <p class="hero-subtitle">Телефон: {{ profile_user.phone }} | Бонусный баланс: <strong>{{ profile_user.bonus_balance }} баллов</strong></p>
+
+    <div class="booking-grid">
+        <div class="card-box-figma">
+            <h2>Мои автомобили</h2>
+            <ul class="order-services-list">
+                {% for car in cars %}
+                    <li>{{ car.brand }} {{ car.model }} ({{ car.body_type.name }}) — <strong>{{ car.license_plate }}</strong></li>
+                {% empty %}
+                    <li>Автомобили ещё не добавлены.</li>
+                {% endfor %}
+            </ul>
+
+            <h3 class="mt-1">Добавить автомобиль</h3>
+            <form method="post" class="js-validate-form" novalidate>
+                {% csrf_token %}
+                {{ car_form.as_p }}
+                <button type="submit" class="btn-action-dark">Сохранить автомобиль</button>
+            </form>
+        </div>
+
+        <div class="card-box-figma">
+            <h2>История записей</h2>
+            {% for b in page_obj %}
+                <div class="window-item mb-1">
+                    <div>
+                        <strong>Заказ №{{ b.id }}</strong> — {{ b.booking_date|date:"d.m.Y" }} в {{ b.start_time|time:"H:i" }}<br>
+                        {{ b.box.name }} | {{ b.car }} | Статус: {{ b.get_status_display }}
+                    </div>
+                    <span>{{ b.total_price }} руб.</span>
+                </div>
+            {% empty %}
+                <p>У вас пока нет записей. <a href="{% url 'core:booking' %}">Оформить первую запись</a>.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

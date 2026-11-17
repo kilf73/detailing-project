@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ service.name }} — Детейлинг-Бокс{% endblock %}
+
+{% block content %}
+<section class="detail-section">
+    <nav class="breadcrumbs">
+        <a href="{% url 'core:home' %}">Главная</a> /
+        <a href="{% url 'core:service_list' %}">Каталог услуг</a> /
+        <span>{{ service.name }}</span>
+    </nav>
+
+    <article class="card-box-figma detail-card">
+        <img src="{% static 'img/service_2.png' %}" alt="{{ service.name }}" class="detail-img">
+        <h1>{{ service.name }}</h1>
+        <p class="hero-subtitle">Категория: {{ service.category.name }}</p>
+        <div class="service-meta">Длительность: {{ service.base_duration_minutes }} мин. | Базовая цена: {{ service.base_price }} руб.</div>
+
+        <h3>Стоимость по типу кузова:</h3>
+        <ul class="order-services-list">
+            {% for bt in body_types %}
+                <li>{{ bt.name }} (коэф. {{ bt.price_coefficient }}): <strong>{% widthratio service.base_price 1 bt.price_coefficient %} руб.</strong></li>
+            {% endfor %}
+        </ul>
+
+        <a href="{% url 'core:booking' %}?service={{ service.pk }}" class="btn-action-dark">Записаться на услугу</a>
+    </article>
+</section>
+{% endblock %}

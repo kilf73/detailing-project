@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Детейлинг-Бокс{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="{% url 'core:home' %}">DETAILING BOX</a>
+            </div>
+            <button type="button" class="burger-btn" id="burgerBtn" aria-expanded="false" aria-controls="mainNav" aria-label="Открыть меню">
+                ☰
+            </button>
+            <nav class="nav" id="mainNav" aria-label="Основная навигация">
+                <ul>
+                    <li><a href="{% url 'core:service_list' %}">Услуги</a></li>
+                    <li><a href="{% url 'core:booking' %}">Запись в бокс</a></li>
+                    <li><a href="{% url 'core:about' %}">О студии и боксах</a></li>
+                    <li><a href="{% url 'core:search_results' %}">Поиск</a></li>
+                    <li><a href="{% url 'core:profile' %}">Кабинет</a></li>
+                </ul>
+            </nav>
+            <div class="header-auth">
+                <a href="{% url 'core:auth' %}" class="auth-link">Вход</a>
+            </div>
+        </div>
+    </header>
+
+    {% if messages %}
+    <div class="messages-wrap" role="status">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <span class="footer-brand">DETAILING BOX</span>
+            <div class="footer-info">
+                г. Ульяновск, ул. Промышленная, 15 | +7 (900) 000-00-00 | Ежедневно 09:00–21:00 | 2026
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}" defer></script>
+</body>
+</html>

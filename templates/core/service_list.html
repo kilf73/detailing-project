@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Каталог услуг — Детейлинг-Бокс{% endblock %}
+
+{% block content %}
+<section class="catalog-section">
+    <h1>Каталог услуг</h1>
+
+    <div class="catalog-controls">
+        <div class="search-box">
+            <label for="liveSearchInput" class="sr-only">Поиск услуги</label>
+            <input type="text" id="liveSearchInput" value="{{ query }}" placeholder="Поиск услуги...">
+        </div>
+        <div class="body-select-box">
+            <label for="liveBodySelect">Кузов:&nbsp;</label>
+            <select id="liveBodySelect" class="form-input">
+                {% for bt in body_types %}
+                    <option value="{{ bt.pk }}" {% if selected_body and selected_body.pk == bt.pk %}selected{% endif %}>
+                        {{ bt.name }} (x{{ bt.price_coefficient }})
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="category-tabs">
+        <button type="button" class="cat-btn js-cat-filter {% if not active_category %}active{% endif %}" data-slug="">Все</button>
+        {% for cat in categories %}
+            <button type="button" class="cat-btn js-cat-filter {% if active_category == cat.slug %}active{% endif %}" data-slug="{{ cat.slug }}">
+                {{ cat.name }}
+            </button>
+        {% endfor %}
+    </div>
+
+    <div id="fetchLoader" class="loader-text" hidden>Загрузка актуальных цен...</div>
+
+    <div class="services-list-figma" id="servicesListContainer">
+        {% for srv in page_obj %}
+        <article class="service-row-card">
+            <div class="service-info-left">
+                <h3><a href="{% url 'core:service_detail' srv.pk %}">{{ srv.name }}</a></h3>
+                <p>Категория: {{ srv.category.name }} | Базовая ставка: {{ srv.base_price }} руб.</p>
+                <div class="service-meta">{{ srv.base_duration_minutes }} мин. | {% widthratio srv.base_price 1 coeff %} руб.</div>
+            </div>
+            <a href="{% url 'core:booking' %}?service={{ srv.pk }}" class="btn-action-sm">Записаться</a>
+        </article>
+        {% empty %}
+        <p>Список услуг пока пуст. Выполните команду <code>python manage.py seed_data</code>.</p>
+        {% endfor %}
+    </div>
+
+    {% if page_obj.has_other_pages %}
+    <nav class="pagination-nav" aria-label="Пагинация каталога">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}&category={{ active_category }}&q={{ query }}" class="btn-card">← Назад</a>
+        {% endif %}
+        <span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&category={{ active_category }}&q={{ query }}" class="btn-card">Вперёд →</a>
+        {% endif %}
+    </nav>
+    {% endif %}
+</section>
+{% endblock %}

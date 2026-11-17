@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Детейлинг и автомойка с записью по боксам{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <h1>Детейлинг и автомойка<br>с записью по боксам</h1>
+    <p class="hero-subtitle">Точный расчёт цены по типу кузова за 1 минуту</p>
+    <a href="{% url 'core:booking' %}" class="btn-action">Записаться онлайн</a>
+</section>
+
+<section class="calc-banner">
+    <h2>Быстрый расчёт стоимости:</h2>
+    <div class="body-types-row">
+        {% for bt in body_types %}
+            <button type="button" class="body-btn js-body-calc {% if forloop.first %}active{% endif %}" data-coeff="{{ bt.price_coefficient }}">
+                {{ bt.name }} x{{ bt.price_coefficient }}
+            </button>
+        {% empty %}
+            <button type="button" class="body-btn js-body-calc active" data-coeff="1.0">Седан x1.0</button>
+            <button type="button" class="body-btn js-body-calc" data-coeff="1.2">Кроссовер x1.2</button>
+            <button type="button" class="body-btn js-body-calc" data-coeff="1.4">Внедорожник x1.4</button>
+            <button type="button" class="body-btn js-body-calc" data-coeff="2.0">Микроавтобус x2.0</button>
+        {% endfor %}
+    </div>
+    <div class="calc-result-bar" id="calcResultBar">
+        Комплексная мойка: 1 500 руб. | Полировка: 12 000 руб.
+    </div>
+</section>
+
+<section class="complexes-section">
+    <h2>Популярные комплексы:</h2>
+    <div class="complexes-grid">
+        {% for srv in popular_services %}
+        <article class="complex-card">
+            <img src="{% static 'img/service_1.png' %}" alt="{{ srv.name }}" class="card-img">
+            <h3><a href="{% url 'core:service_detail' srv.pk %}">{{ srv.name }}</a></h3>
+            <p class="service-meta">{{ srv.base_duration_minutes }} мин. | от {{ srv.base_price }} руб.</p>
+            <a href="{% url 'core:booking' %}?service={{ srv.pk }}" class="btn-card">Выбрать</a>
+        </article>
+        {% empty %}
+        <article class="complex-card">
+            <img src="{% static 'img/service_1.png' %}" alt="Фаза 1-2 мойка" class="card-img">
+            <h3>Фаза 1-2 мойка</h3>
+            <a href="{% url 'core:booking' %}" class="btn-card">Выбрать</a>
+        </article>
+        <article class="complex-card">
+            <img src="{% static 'img/service_2.png' %}" alt="Химчистка" class="card-img">
+            <h3>Химчистка салона</h3>
+            <a href="{% url 'core:booking' %}" class="btn-card">Выбрать</a>
+        </article>
+        <article class="complex-card">
+            <img src="{% static 'img/service_3.png' %}" alt="Керамика" class="card-img">
+            <h3>Керамическое покрытие</h3>
+            <a href="{% url 'core:booking' %}" class="btn-card">Выбрать</a>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="windows-section">
+    <h2>Свободные окна на сегодня:</h2>
+    <div class="window-list">
+        {% for box in boxes %}
+        <div class="window-item">
+            <span>{{ box.name }} ({{ box.get_box_type_display }}): 13:00; 15:00; 17:00</span>
+            <a href="{% url 'core:booking' %}" class="link-btn">Выбрать</a>
+        </div>
+        {% empty %}
+        <div class="window-item">
+            <span>Бокс №1 (Моечный): 16:00; 17:00</span>
+            <a href="{% url 'core:booking' %}" class="link-btn">Выбрать</a>
+        </div>
+        <div class="window-item">
+            <span>Бокс №2 (Детейлинг): 13:00; 15:00</span>
+            <a href="{% url 'core:booking' %}" class="link-btn">Выбрать</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

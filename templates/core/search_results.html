@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Поиск услуг — Детейлинг-Бокс{% endblock %}
+
+{% block content %}
+<section class="search-section">
+    <h1>Поиск по каталогу услуг</h1>
+
+    <form method="get" action="{% url 'core:search_results' %}" class="catalog-controls">
+        <div class="search-box">
+            <input type="text" name="q" value="{{ query }}" placeholder="Введите название услуги или категории...">
+        </div>
+        <button type="submit" class="btn-action-dark">Найти</button>
+    </form>
+
+    {% if query %}
+        <p class="hero-subtitle">По запросу «{{ query }}» найдено записей: {{ total_count }}</p>
+        <div class="services-list-figma">
+            {% for srv in page_obj %}
+            <article class="service-row-card">
+                <div class="service-info-left">
+                    <h3><a href="{% url 'core:service_detail' srv.pk %}">{{ srv.name }}</a></h3>
+                    <p>Категория: {{ srv.category.name }}</p>
+                    <div class="service-meta">{{ srv.base_duration_minutes }} мин. | {{ srv.base_price }} руб.</div>
+                </div>
+                <a href="{% url 'core:booking' %}?service={{ srv.pk }}" class="btn-action-sm">Записаться</a>
+            </article>
+            {% empty %}
+            <p>Ничего не найдено. Попробуйте изменить поисковый запрос.</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

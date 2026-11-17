@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Оформление записи — Детейлинг-Бокс{% endblock %}
+
+{% block content %}
+<section class="booking-section">
+    <h1>Оформление записи</h1>
+
+    <form method="post" class="js-validate-form" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            <div class="alert alert-error">{{ form.non_field_errors }}</div>
+        {% endif %}
+
+        <div class="booking-grid">
+            <div class="booking-left-col">
+                <div class="card-box-figma">
+                    <h3>1. Автомобиль и контакты:</h3>
+                    <div class="form-group-figma">
+                        <label for="{{ form.car.id_for_label }}">Выберите автомобиль:</label>
+                        {{ form.car }}
+                        {{ form.car.errors }}
+                    </div>
+                    <div class="form-group-figma">
+                        <label for="{{ form.client_phone.id_for_label }}">{{ form.client_phone.label }}</label>
+                        {{ form.client_phone }}
+                        {{ form.client_phone.errors }}
+                    </div>
+                </div>
+
+                <div class="card-box-figma">
+                    <h3>2. Дата, бокс и свободные слоты:</h3>
+                    <div class="form-group-figma">
+                        <label for="{{ form.box.id_for_label }}">Рабочий бокс:</label>
+                        {{ form.box }}
+                        {{ form.box.errors }}
+                    </div>
+                    <div class="form-group-figma">
+                        <label for="{{ form.booking_date.id_for_label }}">Дата визита:</label>
+                        {{ form.booking_date }}
+                        {{ form.booking_date.errors }}
+                    </div>
+                    <div class="form-group-figma">
+                        <label for="{{ form.start_time.id_for_label }}">Время начала:</label>
+                        {{ form.start_time }}
+                        {{ form.start_time.errors }}
+                    </div>
+                    <h4 class="sub-heading">Свободные слоты выбранного бокса (обновляется онлайн):</h4>
+                    <div class="time-slots-grid" id="dynamicSlotsGrid"></div>
+                </div>
+            </div>
+
+            <div class="booking-right-col">
+                <div class="card-box-figma order-summary-card">
+                    <h3>3. Выберите услуги:</h3>
+                    {{ form.services }}
+                    {{ form.services.errors }}
+
+                    <div class="form-group-figma">
+                        <label for="{{ form.comment.id_for_label }}">{{ form.comment.label }}</label>
+                        {{ form.comment }}
+                        {{ form.comment.errors }}
+                    </div>
+
+                    <button type="submit" class="btn-action-dark">Подтвердить запись</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="note-box-figma">
+        <strong>Примечание:</strong> Отмена заказа без штрафа доступна за 2 часа до визита.
+    </div>
+</section>
+{% endblock %}
